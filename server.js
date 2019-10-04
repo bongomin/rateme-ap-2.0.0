@@ -42,11 +42,18 @@ app.use(session({
    store: new mongoStore({ mongooseConnection :mongoose.connection })
  }))
 
+ require('./routes/user')(app)
 
+// route to the homepage 
 app.get('/' , (req,res ,next) => {
    res.render('index');
 
 })
+
+// route for signup
+app.get('/signup' ,(req,res,next) => {
+   res.json({'signup_page' :'signup here'})
+}) 
 
 
 
