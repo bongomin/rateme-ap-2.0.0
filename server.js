@@ -4,10 +4,27 @@ var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var engine = require('ejs-mate');
 var session = require('express-session');
+var mongoose = require ('mongoose');
+var mongoStore= require('connect-mongo')(session);
 
+// importing database config file
+
+var database = require('./config/database.js');
 
 
 var app = express();
+
+// database connection
+mongoose.Promise = global.Promise;
+mongoose.connect(database.mongoURI , {
+   useNewUrlParser:true
+})
+.then(() => {
+   console.log('Mongodb Successfully Connected')
+})
+.catch(err => {
+   console.log(err);
+} )
 
 app.use(express.static('public'));
 app.engine('ejs', engine);
@@ -20,8 +37,8 @@ app.use(bodyParser.json());
 app.use(session({
    secret: 'keyboard cat',
    resave: false,
-   saveUninitialized: true,
-   cookie: { secure: true }
+   saveUninitialized: false,
+   store: new mongoStore({ mongooseConnection :mongoose.connection })
  }))
 
 
