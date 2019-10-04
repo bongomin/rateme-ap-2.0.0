@@ -6,6 +6,8 @@ var engine = require('ejs-mate');
 var session = require('express-session');
 var mongoose = require ('mongoose');
 var mongoStore= require('connect-mongo')(session);
+var passport = require('passport')
+var flash = require('connect-flash');
 
 // importing database config file
 
@@ -14,6 +16,7 @@ var database = require('./config/database.js');
 // import routes
 
 var userRoutes = require('./routes/user');
+var passportFile = require('./config/passport')
 
 
 var app = express();
@@ -46,9 +49,14 @@ app.use(session({
    store: new mongoStore({ mongooseConnection :mongoose.connection })
  }))
 
+//  passport middleware  note , always add thepassport moddlewareafter the session middleware
+app.use(passport.initialize());
+app.use(passport.session()); 
+
 
 //  use routes
 app.use('/users' ,userRoutes);
+app.use(passportFile);
 
 
 
