@@ -11,6 +11,10 @@ var mongoStore= require('connect-mongo')(session);
 
 var database = require('./config/database.js');
 
+// import routes
+
+var userRoutes = require('./routes/user');
+
 
 var app = express();
 
@@ -42,18 +46,11 @@ app.use(session({
    store: new mongoStore({ mongooseConnection :mongoose.connection })
  }))
 
- require('./routes/user')(app)
 
-// route to the homepage 
-app.get('/' , (req,res ,next) => {
-   res.render('index');
+//  use routes
+app.use('/users' ,userRoutes);
 
-})
 
-// route for signup
-app.get('/signup' ,(req,res,next) => {
-   res.json({'signup_page' :'signup here'})
-}) 
 
 
 
