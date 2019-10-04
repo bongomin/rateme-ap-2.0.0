@@ -1,5 +1,5 @@
 if(process.env.NODE_DEV ==='production'){
-   module.exports = { mongoURI: }
+   module.exports = { mongoURI:'' }
 }else{
-   module.exports ={mongoURI :mongodb://localhost/rateme-app2}
+   module.exports ={mongoURI :'mongodb://localhost/rateme-app2'}
 }

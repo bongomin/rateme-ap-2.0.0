@@ -17,7 +17,8 @@ var app = express();
 // database connection
 mongoose.Promise = global.Promise;
 mongoose.connect(database.mongoURI , {
-   useNewUrlParser:true
+   useNewUrlParser:true,
+   useUnifiedTopology: true
 })
 .then(() => {
    console.log('Mongodb Successfully Connected')
