@@ -1,4 +1,5 @@
 var express = require('express');
+var passport = require('passport');
 var router = express.Router();
 
 
@@ -13,11 +14,19 @@ router.get('/signup' ,(req,res,next) => {
    res.json({'signup_page' :'signup here'})
 });
 
-router.post('/signup' , passport.authenticate('local.signup',{
-   successRedirect:'res.json({"message" : "successfully signup"})',
-   successRedirect:'res.json({"message" : "/")',
-   failureRedirect : 'res.json({"message" : "',
+router.get('/successjson', function(req, res,next) {
+   res.json({'msg' :'you are successfully signup using passport local'});
+});
+
+router.get('/failurejson', function(req, res,next) {
+   res.json({ 'message': 'failed to signupuser to database ' });
+});
+
+
+router.post('/signup', passport.authenticate('local.signup', {
+   successRedirect: './successjson',
+   failureRedirect: './failurejson',
    failureFlash : true
-}))
+}));
 
 module.exports = router;
