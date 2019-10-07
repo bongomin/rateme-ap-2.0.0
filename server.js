@@ -16,7 +16,7 @@ var database = require('./config/database.js');
 // import routes
 
 var userRoutes = require('./routes/user');
-var passportFile = require('./config/passport')
+require('./config/passport')
 
 
 var app = express();
