@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
 
 var userSchema = mongoose.Schema({
    fullName :{type:String , require: true},
@@ -13,5 +14,10 @@ var userSchema = mongoose.Schema({
    passwordResetExpires :{type : Date, default: Date.now}
 
 });
+
+// encrypting pasword using bcrypt
+userSchema.methods.encrptPassword = (password) => {
+   return bcrypt.hashSync(password ,bcrypt.genSalt(10), null);
+}
 
 module.exports = mongoose.model('User' ,userSchema);
