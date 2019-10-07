@@ -56,7 +56,7 @@ app.use(passport.session());
 
 //  use routes
 app.use('/users' ,userRoutes);
-app.use(passportFile);
+// app.use(passportFile);
 
 
 
